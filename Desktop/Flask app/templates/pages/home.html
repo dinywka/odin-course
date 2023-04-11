@@ -1,0 +1,87 @@
+{% extends "components/base.html" %}
+
+{% block main %}
+
+<div class="container my-5">
+  <form action="{{ url_for('home') }}" method="GET">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Поиск по названию товара" name="search">
+      <button class="btn btn-outline-primary" type="submit" id="button-addon2">Найти</button>
+    </div>
+  </form>
+<!--  <div class="row">-->
+<!--    {% for product in products %}-->
+<!--    <div class="col-md-4">-->
+<!--      <div class="card mb-4 shadow-sm">-->
+<!--        <img src="{{ url_for('static', filename='product.png') }}" class="card-img-top" alt="Product Image">-->
+<!--        <div class="card-body">-->
+<!--          <h5 class="card-title">{{ product.title }}</h5>-->
+<!--          <p class="card-text">{{ product.description }}</p>-->
+<!--          <div class="d-flex justify-content-between align-items-center">-->
+<!--            <small class="text-muted">{{ product.price }} руб.</small>-->
+<!--            <span class="badge badge-primary badge-pill">{{ product.count }}</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    {% endfor %}-->
+<!--  </div>-->
+</div>
+
+
+<div class="container w-25">
+  <main class="form-signin small">
+    <form action="{{ url_for('create') }}" method="POST" enctype="multipart/form-data">
+      <h1 class="h3 mb-3 fw-normal">Заполните данные:</h1>
+      <div class="form-floating m-1 p-1">
+        <input type="text" class="form-control" id="floatingInput" placeholder="Хлеб" name="title">
+        <label for="floatingInput">Заголовок:</label>
+      </div>
+      <div class="m-1 p-1">
+        <textarea class="form-control" placeholder="Описание" rows="5" name="description"></textarea>
+      </div>
+      <div class="form-floating m-1 p-1">
+        <input type="text" class="form-control" id="floatingInput" placeholder="200" name="price">
+        <label for="floatingInput">Цена:</label>
+      </div>
+      <div class="form-floating m-1 p-1">
+        <input type="text" class="form-control" id="floatingInput" placeholder="50" name="count">
+        <label for="floatingInput">Количество:</label>
+      </div>
+
+      <button class="w-100 btn btn-lg btn-outline-primary" type="submit">отправить</button>
+    </form>
+  </main>
+</div>
+
+{% if products %}
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+        <tr>
+          <td>{{ product.id }}</td>
+          <td>{{ product.title }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.count }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <div class="alert alert-danger" role="alert">
+    Нет товаров в базе данных!
+  </div>
+{% endif %}
+
+{% endblock main %}
+
